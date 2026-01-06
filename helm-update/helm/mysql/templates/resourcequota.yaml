@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: dev-resource-quota
+  namespace: {{ .Values.mysql.namespace }}
+spec:
+  hard:
+    pods: {{ .Values.mysql.ResourceQuota.pods }}
+    requests.cpu: {{ .Values.mysql.ResourceQuota.requests.cpu }}
+    requests.memory: {{ .Values.mysql.ResourceQuota.requests.memory }}
+    limits.cpu: {{ .Values.mysql.ResourceQuota.limits.cpu }}
+    limits.memory: {{ .Values.mysql.ResourceQuota.limits.memory }}

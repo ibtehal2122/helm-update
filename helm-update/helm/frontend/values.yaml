@@ -1,0 +1,33 @@
+frontend:
+  image:
+    repository: abdlerazek/ourplant-frontend
+    tag: latest
+    pullPolicy: Always
+
+  service:
+    type: ClusterIP
+    port: 80
+    containerPort: 80
+  replicaCount: 1
+
+  ResourceQuota:
+    pods: 4
+    requests.cpu: 2
+    requests.memory: 2Gi
+    limits.cpu: 4
+    limits.memory: 4Gi
+  hpa:
+    minReplicas: 1
+    maxReplicas: 5
+    targetCPUUtilizationPercentage: 60
+    targetType: Utilization
+global:
+  domain: ourplant.local
+ingress:
+  enabled: true
+  className: nginx
+  path: /
+  pathType: Prefix
+  certIssuer: letsencrypt-prod
+namespace: frontend
+

@@ -1,0 +1,27 @@
+
+backend:
+  image:
+    repository: abdlerazek/ourplant-backend
+    tag: latest
+    pullPolicy: Always
+  service:
+    type: ClusterIP
+    port: 5000
+  replicaCount: 1
+  env:
+    mysqlHost: db
+    mysqlUser: root
+    mysqlPassword: root
+    mysqlDb: ourplant_db
+namespace: backend
+ResourceQuota:
+  pods: 4
+  requests.cpu: 2
+  requests.memory: 2Gi
+  limits.cpu: 4
+  limits.memory: 4Gi
+hpa:
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 60      
+  targetType: Utilization
